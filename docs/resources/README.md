@@ -6,11 +6,11 @@ parent:
 
 # Resources
 
-This folder contains resources on the `gaia` software.
+This folder contains resources on the `aneka` software.
 
-- [`gaiacli` documentation](./gaiacli.md)
-- [`gaia` genesis file](./genesis.md)
-- [HD Wallets for `gaia`](./hd-wallets.md)
-- [Ledger Integration for `gaia`](./ledger.md)
+- [`anekacli` documentation](./anekacli.md)
+- [`aneka` genesis file](./genesis.md)
+- [HD Wallets for `aneka`](./hd-wallets.md)
+- [Ledger Integration for `aneka`](./ledger.md)
 - [Service Providers Documentation](./service-providers.md)
 - [Reproducible Builds](./reproducible-builds.md)

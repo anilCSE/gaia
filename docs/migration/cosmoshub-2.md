@@ -18,25 +18,25 @@ on `December 11, 2019 at or around 14:27 UTC` on block `2,902,000`.
 
 ## Preliminary
 
-Many changes have occurred to the Cosmos SDK and the Gaia application since the latest
+Many changes have occurred to the Cosmos SDK and the Aneka application since the latest
 major upgrade (`cosmoshub-2`). These changes notably consist of many new features,
 protocol changes, and application structural changes that favor developer ergonomics
 and application development.
 
 First and foremost, the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/) and the
-[Gaia](https://github.com/cosmos/gaia) application have been split into separate
-repositories. This allows for both the Cosmos SDK and Gaia to evolve naturally
-and independently. Thus, any future [releases](https://github.com/cosmos/gaia/releases)
-of Gaia going forward, including this one, will be built and tagged from this
+[Aneka](https://github.com/vitwit/aneka) application have been split into separate
+repositories. This allows for both the Cosmos SDK and Aneka to evolve naturally
+and independently. Thus, any future [releases](https://github.com/vitwit/aneka/releases)
+of Aneka going forward, including this one, will be built and tagged from this
 repository not the Cosmos SDK.
 
-Since the Cosmos SDK and Gaia have now been split into separate repositories, their
+Since the Cosmos SDK and Aneka have now been split into separate repositories, their
 versioning will also naturally diverge. In an attempt to decrease community confusion and strive for
 semantic versioning, the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/) will continue
-on its current versioning path (i.e. v0.36.x ) and the [Gaia](https://github.com/cosmos/gaia)
+on its current versioning path (i.e. v0.36.x ) and the [Aneka](https://github.com/vitwit/aneka)
 application will become v2.0.x.
 
-__[Gaia](https://github.com/cosmos/gaia) application v2.0.3 is
+__[Aneka](https://github.com/vitwit/aneka) application v2.0.3 is
 what full node operators will upgrade to and run in this next major upgrade__.
 
 ## Major Updates
@@ -75,9 +75,9 @@ before resetting your validator.
 
 Prior to exporting `cosmoshub-2` state, validators are encouraged to take a full data snapshot at the
 export height before proceeding. Snapshotting depends heavily on infrastructure, but generally this
-can be done by backing up the `.gaiacli` and `.gaiad` directories.
+can be done by backing up the `.anekacli` and `.anekad` directories.
 
-It is critically important to back-up the `.gaiad/data/priv_validator_state.json` file after stopping your gaiad process. This file is updated every block as your validator participates in a consensus rounds. It is a critical file needed to prevent double-signing, in case the upgrade fails and the previous chain needs to be restarted.
+It is critically important to back-up the `.anekad/data/priv_validator_state.json` file after stopping your anekad process. This file is updated every block as your validator participates in a consensus rounds. It is a critical file needed to prevent double-signing, in case the upgrade fails and the previous chain needs to be restarted.
 
 In the event that the upgrade does not succeed, validators and operators must downgrade back to
 v0.34.6+ of the _Cosmos SDK_ and restore to their latest snapshot before restarting their nodes.
@@ -86,17 +86,17 @@ v0.34.6+ of the _Cosmos SDK_ and restore to their latest snapshot before restart
 
 __Note__: It is assumed you are currently operating a full-node running v0.34.6+ of the _Cosmos SDK_.
 
-- The version/commit hash of Gaia v2.0.3: `2f6783e298f25ff4e12cb84549777053ab88749a`
+- The version/commit hash of Aneka v2.0.3: `2f6783e298f25ff4e12cb84549777053ab88749a`
 - The upgrade height as agreed upon by governance: **2,902,000**
 - You may obtain the canonical UTC timestamp of the exported block by any of the following methods:
   - Block explorer (e.g. [Hubble](https://hubble.figment.network/cosmos/chains/cosmoshub-2/blocks/2902000?format=json&kind=block))
   - Through manually querying an RPC node (e.g. `/block?height=2902000`)
-  - Through manually querying a Gaia REST client (e.g. `/blocks/2902000`)
+  - Through manually querying a Aneka REST client (e.g. `/blocks/2902000`)
 
 1. Verify you are currently running the correct version (v0.34.6+) of the _Cosmos SDK_:
 
    ```shell
-   $ gaiad version --long
+   $ anekad version --long
    cosmos-sdk: 0.34.6
    git commit: 80234baf91a15dd9a7df8dca38677b66b8d148c1
    vendor hash: f60176672270c09455c01e9d880079ba36130df4f5cd89df58b6701f50b13aad
@@ -111,10 +111,10 @@ __Note__: It is assumed you are currently operating a full-node running v0.34.6+
    comes online in a sufficient and agreed upon amount of time. In such a case, the chain will fallback
    to continue operating `cosmoshub-2`. See [Recovery](#recovery) for details on how to proceed.
 
-   Before exporting state via the following command, the `gaiad` binary must be stopped!
+   Before exporting state via the following command, the `anekad` binary must be stopped!
 
    ```shell
-   $ gaiad export --for-zero-height --height=2902000 > cosmoshub_2_genesis_export.json
+   $ anekad export --for-zero-height --height=2902000 > cosmoshub_2_genesis_export.json
    ```
 
 3. Verify the SHA256 of the (sorted) exported genesis file:
@@ -125,21 +125,21 @@ __Note__: It is assumed you are currently operating a full-node running v0.34.6+
    ```
 
 4. At this point you now have a valid exported genesis state! All further steps now require
-v2.0.3 of [Gaia](https://github.com/cosmos/gaia).
+v2.0.3 of [Aneka](https://github.com/vitwit/aneka).
 
    **NOTE**: Go [1.13+](https://golang.org/dl/) is required!
 
    ```shell
-   $ git clone https://github.com/cosmos/gaia.git && cd gaia && git checkout v2.0.3; make install
+   $ git clone https://github.com/vitwit/aneka.git && cd aneka && git checkout v2.0.3; make install
    ```
 
-5. Verify you are currently running the correct version (v2.0.3) of the _Gaia_:
+5. Verify you are currently running the correct version (v2.0.3) of the _Aneka_:
 
    ```shell
-   $ gaiad version --long
-   name: gaia
-   server_name: gaiad
-   client_name: gaiacli
+   $ anekad version --long
+   name: aneka
+   server_name: anekad
+   client_name: anekacli
    version: 2.0.3
    commit: 2f6783e298f25ff4e12cb84549777053ab88749a
    build_tags: netgo,ledger
@@ -149,7 +149,7 @@ v2.0.3 of [Gaia](https://github.com/cosmos/gaia).
 6. Migrate exported state from the current v0.34.6+ version to the new v2.0.3 version:
 
    ```shell
-   $ gaiad migrate v0.36 cosmoshub_2_genesis_export.json --chain-id=cosmoshub-3 --genesis-time=[PLACEHOLDER]> genesis.json
+   $ anekad migrate v0.36 cosmoshub_2_genesis_export.json --chain-id=cosmoshub-3 --genesis-time=[PLACEHOLDER]> genesis.json
    ```
 
    **NOTE**: The `migrate` command takes an input genesis state and migrates it to a targeted version.
@@ -184,20 +184,20 @@ single parameter, `max_validators`, that we're upgrading based on [proposal 10](
    See [Recovery](#recovery) for details on how to proceed.
 
    ```shell
-   $ gaiad unsafe-reset-all
+   $ anekad unsafe-reset-all
    ```
 
-10. Move the new `genesis.json` to your `.gaiad/config/` directory
-11. Replace the `db_backend` on `.gaiad/config/config.toml` to:
+10. Move the new `genesis.json` to your `.anekad/config/` directory
+11. Replace the `db_backend` on `.anekad/config/config.toml` to:
 
     ```toml
     db_backend = "goleveldb"
     ```
 
-12. Note, if you have any application configuration in `gaiad.toml`, that file has now been renamed to `app.toml`:
+12. Note, if you have any application configuration in `anekad.toml`, that file has now been renamed to `app.toml`:
 
     ```shell
-    $ mv .gaiad/config/gaiad.toml .gaiad/config/app.toml
+    $ mv .anekad/config/anekad.toml .anekad/config/app.toml
     ```
 
 ## Notes for Service Providers
@@ -208,8 +208,8 @@ single parameter, `max_validators`, that we're upgrading based on [proposal 10](
 2. Anyone running signing infrastructure(wallets and exchanges) should be conscious that the `type:`
    field on `StdTx` will have changed from `"type":"auth/StdTx","value":...` to  `"type":"cosmos-sdk/StdTx","value":...`
 3. As mentioned in the notes and SDK CHANGELOG, many queries to cosmos cli are wrapped with `height` fields now.
-4. We highly recommend standing up a [testnet](https://github.com/cosmos/gaia/blob/master/docs/deploy-testnet.md)
-   with the `gaia-2.0` release or joining the gaia-13006 testnet. More info for joining the testnet can be
+4. We highly recommend standing up a [testnet](https://github.com/vitwit/aneka/blob/master/docs/deploy-testnet.md)
+   with the `aneka-2.0` release or joining the aneka-13006 testnet. More info for joining the testnet can be
    found in the [riot validator room](https://riot.im/app/#/room/#cosmos-validators:matrix.org).
 5. We expect that developers with iOS or Android based apps may have to notify their users of downtime
    and ship an upgrade for cosmoshub-3 compatibility unless they have some kind of switch they can throw

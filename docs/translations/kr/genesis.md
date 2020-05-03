@@ -1,14 +1,14 @@
 # 제네시스 파일
 
-이 문서는 코스모스 허브 메인넷의 제네시스 파일의 구조를 설명합니다. 또한, 자체 gaia 테스트넷을 운영하기 위해 자체적으로 제네시스 파일을 작성하는 방법을 설명합니다.
+이 문서는 코스모스 허브 메인넷의 제네시스 파일의 구조를 설명합니다. 또한, 자체 aneka 테스트넷을 운영하기 위해 자체적으로 제네시스 파일을 작성하는 방법을 설명합니다.
 
 참고로 기본 설정이 적용된 제네시스 파일을 사용해 테스트넷을 운영하기 위해서는 다음 명령어를 입력할 수 있습니다:
 
 ```bash
-gaiad init <명칭(moniker)> --chain-id <체인_아이디(chain-id)>
+anekad init <명칭(moniker)> --chain-id <체인_아이디(chain-id)>
 ```
 
-제네시스 파일은 `~/.gaiad/config/genesis.toml`에 저장됩니다.
+제네시스 파일은 `~/.anekad/config/genesis.toml`에 저장됩니다.
 
 ## 제네시스 파일은 무엇인가?
 
@@ -32,7 +32,7 @@ gaiad init <명칭(moniker)> --chain-id <체인_아이디(chain-id)>
 
 ## 컨센서스 파라미터
 
-이후 제네시스 파일은 컨센서스 파라미터 값을 정의합니다. 컨센서스 파라미터는 모든 합의 계층(`gaia`의 경우 `Tendermint` 계층) 관련 값을 리그룹(regroup)합니다. 파라미터 값에 대해 알아보겠습니다:
+이후 제네시스 파일은 컨센서스 파라미터 값을 정의합니다. 컨센서스 파라미터는 모든 합의 계층(`aneka`의 경우 `Tendermint` 계층) 관련 값을 리그룹(regroup)합니다. 파라미터 값에 대해 알아보겠습니다:
 
 - `block`
     + `max_bytes`: 블록 최대 바이트 크기
@@ -68,9 +68,9 @@ gaiad init <명칭(moniker)> --chain-id <체인_아이디(chain-id)>
 이 항목에서는 초기 토큰 분배가 정의됩니다. 수동으로 제네시스 파일에 계정을 추가할 수 있지만, 다음 명령어를 통해 계정을 추가할 수도 있습니다:
 
 ```bash
-// 예시: gaiad add-genesis-account cosmos1qs8tnw2t8l6amtzvdemnnsq9dzk0ag0z37gh3h 10000000uatom
+// 예시: anekad add-genesis-account cosmos1qs8tnw2t8l6amtzvdemnnsq9dzk0ag0z37gh3h 10000000uatom
 
-gaiad add-genesis-account <계정_주소(account_address)> <수량(amount)> <단위(denom)>
+anekad add-genesis-account <계정_주소(account_address)> <수량(amount)> <단위(denom)>
 ```
 
 위 명령어는 `app_state` 항목 내 `accounts` 리스트에 아이템을 추가합니다.
@@ -105,7 +105,7 @@ gaiad add-genesis-account <계정_주소(account_address)> <수량(amount)> <단
 
 - `sequence_number`: 이 숫자는 계정이 전송한 트랜잭션 수를 추적하는데 사용됩니다. 트랜잭션이 블록에 포함될 때마다 숫자가 증가하며 리플레이 공격(replay attack)을 방지하기 위해 사용됩니다. 기본 값은 `0` 입니다.
 - `account_number`: 계정 고유 식별번호입니다. 해당 계정의 첫 트랜잭션이 블록에 포함될때 생성됩니다.
-- `original_vesting`: `gaia`는 베스팅(락업) 기능을 지원합니다. 락업 계정이 소유한 토큰 수량을 지정하고, 토큰 전송이 가능할때까지의 시간을 정할 수 있습니다. 락업된 토큰의 스테이킹은 지원됩니다. 기본 값은 `null`입니다.
+- `original_vesting`: `aneka`는 베스팅(락업) 기능을 지원합니다. 락업 계정이 소유한 토큰 수량을 지정하고, 토큰 전송이 가능할때까지의 시간을 정할 수 있습니다. 락업된 토큰의 스테이킹은 지원됩니다. 기본 값은 `null`입니다.
 - `delegated_free`: 락업이 풀린 후 전송될 수 있는 위임된 수량을 뜻합니다. 대부분 제네시스 상황에서는 `null`이 표준 값입니다.
 - `delegated_vesting`: 아직 락업이 진행중인 위임된 수량을 뜻합니다. 대분분 제네시스 상황에서는 `null`이 표준 값입니다.
 - `start_time`: 락업이 풀리는 시점의 블록 높이입니다. 대부분 제네시스 상황에서는 `0`이 표준 값입니다.
@@ -327,7 +327,7 @@ gaiad add-genesis-account <계정_주소(account_address)> <수량(amount)> <단
 `gentx`는 수동으로 제네시스 파일에 추가되거나 다음 명령어를 사용해 추가할 수 있습니다:
 
 ```bash
-gaiad collect-gentxs
+anekad collect-gentxs
 ```
 
-위 명령어는 `~/.gaiad/config/gentx`에 있는 모든 `gentxs`를 제네시스 파일에 추가합니다. 제네시스 트랜잭션을 생성하기 위해서는 [여기](./validators/validator-setup.md#participate-in-genesis-as-a-validator)를 확인하세요.
+위 명령어는 `~/.anekad/config/gentx`에 있는 모든 `gentxs`를 제네시스 파일에 추가합니다. 제네시스 트랜잭션을 생성하기 위해서는 [여기](./validators/validator-setup.md#participate-in-genesis-as-a-validator)를 확인하세요.

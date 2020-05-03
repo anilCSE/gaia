@@ -4,11 +4,11 @@ executors:
   golang:
     docker:
       - image: circleci/golang:1.14
-    working_directory: /go/src/github.com/cosmos/gaia
+    working_directory: /go/src/github.com/vitwit/aneka
   mac:
     macos:
       xcode: "10.3.0"
-    working_directory: /Users/distiller/project/src/github.com/cosmos/gaia
+    working_directory: /Users/distiller/project/src/github.com/vitwit/aneka
     environment:
       GO_VERSION: "1.14"
   docs:
@@ -98,10 +98,10 @@ jobs:
     steps:
       - make:
           target: test-sim-multi-seed-long
-          description: "Test Gaia multi-seed simulation (long-lived)"
+          description: "Test Aneka multi-seed simulation (long-lived)"
 
   localnet:
-    working_directory: /home/circleci/.go_workspace/src/github.com/cosmos/gaia
+    working_directory: /home/circleci/.go_workspace/src/github.com/vitwit/aneka
     machine:
       image: circleci/classic:latest
     environment:
@@ -160,10 +160,10 @@ jobs:
           command: source $BASH_ENV
             make test-build
       - run:
-          name: Test full gaia simulation
+          name: Test full aneka simulation
           command: |
             source $BASH_ENV
-            make test-sim-gaia-fast
+            make test-sim-aneka-fast
 
   docker-image:
     executor: golang
@@ -185,9 +185,9 @@ jobs:
           if [ -z "${GAIAD_VERSION}" ]; then
             docker build .
           else
-            docker build -t tendermint/gaia:$GAIAD_VERSION .
+            docker build -t tendermint/aneka:$GAIAD_VERSION .
             docker login --password-stdin -u $DOCKER_USER \<\<\<$DOCKER_PASS
-            docker push tendermint/gaia:$GAIAD_VERSION
+            docker push tendermint/aneka:$GAIAD_VERSION
           fi
 
   docker-tagged:
@@ -199,9 +199,9 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run: |
-          docker build -t tendermint/gaia:$CIRCLE_TAG .
+          docker build -t tendermint/aneka:$CIRCLE_TAG .
           docker login --password-stdin -u $DOCKER_USER \<\<\<$DOCKER_PASS
-          docker push tendermint/gaia:$CIRCLE_TAG
+          docker push tendermint/aneka:$CIRCLE_TAG
 
   reproducible-builds:
     executor: golang
@@ -212,18 +212,18 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          name: Build gaia
+          name: Build aneka
           no_output_timeout: 20m
           command: |
             sudo apt-get install -y ruby
             bash -x ./contrib/gitian-build.sh multi
-            cp gitian-build-multi/result/gaia-multi-res.yml .
+            cp gitian-build-multi/result/aneka-multi-res.yml .
             rm -rf gitian-build-multi/
       - store_artifacts:
-          path: /go/src/github.com/cosmos/gaia/gaia-multi-res.yml
+          path: /go/src/github.com/vitwit/aneka/aneka-multi-res.yml
 
 # FIXME: The `setup-contract-tests-data` make target is broken as it completely
-# overrides the .gaiad directory.
+# overrides the .anekad directory.
 #
 #  contract_tests:
 #    executor: golang
@@ -266,13 +266,13 @@ workflows:
               only:
                 - master
       - deploy-docs:
-          context: gaia-docs-deployment-staging
+          context: aneka-docs-deployment-staging
           filters:
             branches:
               only:
                 - docs-update
       - deploy-docs:
-          context: gaia-docs-deployment
+          context: aneka-docs-deployment
           filters:
             branches:
               only:

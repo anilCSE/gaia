@@ -5,7 +5,7 @@
 :::
 
 ::: 警告
-你需要先完成[安装`gaia`](./installation.md)
+你需要先完成[安装`aneka`](./installation.md)
 :::
 
 ## 创建一个新节点
@@ -29,8 +29,8 @@
 首先，移除过期的文件并重置数据：
 
 ```bash
-rm $HOME/.gaiad/config/addrbook.json $HOME/.gaiad/config/genesis.json
-gaiad unsafe-reset-all
+rm $HOME/.anekad/config/addrbook.json $HOME/.anekad/config/genesis.json
+anekad unsafe-reset-all
 ```
 
 你的节点现在处于原始状态并保留了最初的`priv_validator.json`文件和`config.toml`文件。如果之前你还有其他的哨兵节点或者全节点，你的节点仍然会连接他们，但是会失败，因为他们还没有升级。

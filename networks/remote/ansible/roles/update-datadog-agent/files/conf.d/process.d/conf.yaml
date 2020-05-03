@@ -5,11 +5,11 @@ instances:
   search_string: ['ssh', 'sshd']
   thresholds:
     critical: [1, 5]
-- name: gaiad
-  search_string: ['gaiad']
+- name: anekad
+  search_string: ['anekad']
   thresholds:
     critical: [1, 1]
-- name: gaiacli
-  search_string: ['gaiacli']
+- name: anekacli
+  search_string: ['anekacli']
   thresholds:
     critical: [1, 1]

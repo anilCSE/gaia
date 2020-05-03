@@ -1,6 +1,6 @@
 # 部署你自己的测试网
 
-这篇文章介绍了三种创建`gaiad`节点的测试网的方式，每种针对不同的使用场景：
+这篇文章介绍了三种创建`anekad`节点的测试网的方式，每种针对不同的使用场景：
 
 1. 单节点，本地的，手动的测试网
 2. 多节点，本地的，自动的测试网
@@ -12,12 +12,12 @@
 
 ## 可获取的 Docker 镜像
 
-如果你需要使用或部署 gaia 作为容器，你可以跳过`build`步骤并使用官方镜像，\$TAG 标识你感兴趣的版本：
+如果你需要使用或部署 aneka 作为容器，你可以跳过`build`步骤并使用官方镜像，\$TAG 标识你感兴趣的版本：
 
-- `docker run -it -v ~/.gaiad:/root/.gaiad -v ~/.gaiacli:/root/.gaiacli tendermint:$TAG gaiad init`
-- `docker run -it -p 26657:26657 -p 26656:26656 -v ~/.gaiad:/root/.gaiad -v ~/.gaiacli:/root/.gaiacli tendermint:$TAG gaiad start`
+- `docker run -it -v ~/.anekad:/root/.anekad -v ~/.anekacli:/root/.anekacli tendermint:$TAG anekad init`
+- `docker run -it -p 26657:26657 -p 26656:26656 -v ~/.anekad:/root/.anekad -v ~/.anekacli:/root/.anekacli tendermint:$TAG anekad start`
 - ...
-- `docker run -it -v ~/.gaiad:/root/.gaiad -v ~/.gaiacli:/root/.gaiacli tendermint:$TAG gaiacli version`
+- `docker run -it -v ~/.anekad:/root/.anekad -v ~/.anekacli:/root/.anekacli tendermint:$TAG anekacli version`
 
 相同的镜像也可以用于构建你自己的 docker-compose 栈
 
@@ -27,7 +27,7 @@
 
 ### 需要
 
-- [安装 gaia](./installation.md)
+- [安装 aneka](./installation.md)
 - [安装`jq`](https://stedolan.github.io/jq/download/)(可选的)
 
 ### 创建 genesis 文件并启动网络
@@ -37,27 +37,27 @@
 cd $HOME
 
 # Initialize the genesis.json file that will help you to bootstrap the network
-gaiad init --chain-id=testing testing
+anekad init --chain-id=testing testing
 
 # Create a key to hold your validator account
-gaiacli keys add validator
+anekacli keys add validator
 
 # Add that key into the genesis.app_state.accounts array in the genesis file
 # NOTE: this command lets you set the number of coins. Make sure this account has some coins
 # with the genesis.app_state.staking.params.bond_denom denom, the default is staking
-gaiad add-genesis-account $(gaiacli keys show validator -a) 1000000000stake,1000000000validatortoken
+anekad add-genesis-account $(anekacli keys show validator -a) 1000000000stake,1000000000validatortoken
 
 # Generate the transaction that creates your validator
-gaiad gentx --name validator
+anekad gentx --name validator
 
 # Add the generated bonding transaction to the genesis file
-gaiad collect-gentxs
+anekad collect-gentxs
 
-# Now its safe to start `gaiad`
-gaiad start
+# Now its safe to start `anekad`
+anekad start
 ```
 
-启动将会把`gaiad`相关的所有数据放在`~/.gaiad`目录。你可以检查所创建的 genesis 文件——`~/.gaiad/config/genesis.json`。同时`gaiacli`也已经配置完成并且有了一个拥有 token 的账户(stake 和自定义的代币)。
+启动将会把`anekad`相关的所有数据放在`~/.anekad`目录。你可以检查所创建的 genesis 文件——`~/.anekad/config/genesis.json`。同时`anekacli`也已经配置完成并且有了一个拥有 token 的账户(stake 和自定义的代币)。
 
 ## 多节点，本地的，自动的测试网
 
@@ -65,17 +65,17 @@ gaiad start
 
 ### 需要
 
-- [安装 gaia](./installation.md)
+- [安装 aneka](./installation.md)
 - [安装 docker](https://docs.docker.com/install/)
 - [安装 docker-compose](https://docs.docker.com/compose/install/)
 
 ### 编译
 
-编译`gaiad`二进制文件(linux)和运行`localnet`命令所需的`tendermint/gaianode` docker images。这个二进制文件将被安装到 container 中，并且可以更新重建 image，因此您只需要构建一次 image。
+编译`anekad`二进制文件(linux)和运行`localnet`命令所需的`tendermint/anekanode` docker images。这个二进制文件将被安装到 container 中，并且可以更新重建 image，因此您只需要构建一次 image。
 
 ```bash
-# Clone the gaia repo
-git clone https://github.com/cosmos/gaia.git
+# Clone the aneka repo
+git clone https://github.com/vitwit/aneka.git
 
 # Work from the SDK repo
 cd cosmos-sdk
@@ -83,8 +83,8 @@ cd cosmos-sdk
 # Build the linux binary in ./build
 make build-linux
 
-# Build tendermint/gaiadnode image
-make build-docker-gaiadnode
+# Build tendermint/anekadnode image
+make build-docker-anekadnode
 ```
 
 ### 运行你的测试网
@@ -95,14 +95,14 @@ make build-docker-gaiadnode
 make localnet-start
 ```
 
-此命令使用 gaiadnode image 创建了一个 4 节点网络。每个节点的端口可以在下表中找到：
+此命令使用 anekadnode image 创建了一个 4 节点网络。每个节点的端口可以在下表中找到：
 
 | `Node ID`   | `P2P Port` | `RPC Port` |
 | ----------- | ---------- | ---------- |
-| `gaianode0` | `26656`    | `26657`    |
-| `gaianode1` | `26659`    | `26660`    |
-| `gaianode2` | `26661`    | `26662`    |
-| `gaianode3` | `26663`    | `26664`    |
+| `anekanode0` | `26656`    | `26657`    |
+| `anekanode1` | `26659`    | `26660`    |
+| `anekanode2` | `26661`    | `26662`    |
+| `anekanode3` | `26663`    | `26664`    |
 
 更新可执行程序，只需要重新编译并重启节点:
 
@@ -112,71 +112,71 @@ make build-linux localnet-start
 
 ### 配置
 
-`make localnet-start`命令通过调用`gaiad testnet`命令在`./build`中创建了一个 4 节点测试网络的文件。输出`./build`目录下一些文件:
+`make localnet-start`命令通过调用`anekad testnet`命令在`./build`中创建了一个 4 节点测试网络的文件。输出`./build`目录下一些文件:
 
 ```bash
 $ tree -L 2 build/
 build/
-├── gaiacli
-├── gaiad
+├── anekacli
+├── anekad
 ├── gentxs
 │   ├── node0.json
 │   ├── node1.json
 │   ├── node2.json
 │   └── node3.json
 ├── node0
-│   ├── gaiacli
+│   ├── anekacli
 │   │   ├── key_seed.json
 │   │   └── keys
-│   └── gaiad
-│       ├── ${LOG:-gaiad.log}
+│   └── anekad
+│       ├── ${LOG:-anekad.log}
 │       ├── config
 │       └── data
 ├── node1
-│   ├── gaiacli
+│   ├── anekacli
 │   │   └── key_seed.json
-│   └── gaiad
-│       ├── ${LOG:-gaiad.log}
+│   └── anekad
+│       ├── ${LOG:-anekad.log}
 │       ├── config
 │       └── data
 ├── node2
-│   ├── gaiacli
+│   ├── anekacli
 │   │   └── key_seed.json
-│   └── gaiad
-│       ├── ${LOG:-gaiad.log}
+│   └── anekad
+│       ├── ${LOG:-anekad.log}
 │       ├── config
 │       └── data
 └── node3
-    ├── gaiacli
+    ├── anekacli
     │   └── key_seed.json
-    └── gaiad
-        ├── ${LOG:-gaiad.log}
+    └── anekad
+        ├── ${LOG:-anekad.log}
         ├── config
         └── data
 ```
 
-每个`./build/nodeN`目录被挂载到对应 container 的`/gaiad`目录。
+每个`./build/nodeN`目录被挂载到对应 container 的`/anekad`目录。
 
 ### 日志输出
 
-日志被保存在每个`./build/nodeN/gaiad/gaia.log`文件中。你也可以直接通过 Docker 来查看日志：
+日志被保存在每个`./build/nodeN/anekad/aneka.log`文件中。你也可以直接通过 Docker 来查看日志：
 
 ```bash
-docker logs -f gaiadnode0
+docker logs -f anekadnode0
 ```
 
 ### 密钥&账户
 
-你需要使用指定节点的`gaiacli`目录作为你的`home`来同`gaiacli`交互，并执行查询或者创建交易:
+你需要使用指定节点的`anekacli`目录作为你的`home`来同`anekacli`交互，并执行查询或者创建交易:
 
 ```bash
-gaiacli keys list --home ./build/node0/gaiacli
+anekacli keys list --home ./build/node0/anekacli
 ```
 
 现在账户已经存在了，你可以创建新的账户并向其发送资金！
 
 ::: 提示
-注意：每个节点的密钥种子放在`./build/nodeN/gaiacli/key_seed.json`中，可以通过`gaiacli keys add --restore`命令来回复。
+注意：每个节点的密钥种子放在`./build/nodeN/anekacli/key_seed.json`中，可以通过`anekacli keys add --restore`命令来回复。
 :::
 
 ### 特殊的可执行程序
@@ -185,7 +185,7 @@ gaiacli keys list --home ./build/node0/gaiacli
 
 ```
 # Run with custom binary
-BINARY=gaiafoo make localnet-start
+BINARY=anekafoo make localnet-start
 ```
 
 ## 多节点，远程的，自动的测试网

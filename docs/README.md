@@ -6,31 +6,31 @@ layout: home
 
 # Cosmos Hub Documentation
 
-Welcome to the documentation of the **Cosmos Hub application: `gaia`**.
+Welcome to the documentation of the **Cosmos Hub application: `aneka`**.
 
-## What is Gaia?
+## What is Aneka?
 
-- [Intro to the `gaia` software](./gaia-tutorials/what-is-gaia.md)
+- [Intro to the `aneka` software](./aneka-tutorials/what-is-aneka.md)
 
 ## Join the Cosmos Hub Mainnet
 
-- [Install the `gaia` application](./gaia-tutorials/installation.md)
-- [Set up a full node and join the mainnet](./gaia-tutorials/join-mainnet.md)
+- [Install the `aneka` application](./aneka-tutorials/installation.md)
+- [Set up a full node and join the mainnet](./aneka-tutorials/join-mainnet.md)
 - [Upgrade to a validator node](./validators/validator-setup.md)
 
 ## Join the Cosmos Hub Public Testnet
 
-- [Join the testnet](./gaia-tutorials/join-testnet.md)
+- [Join the testnet](./aneka-tutorials/join-testnet.md)
 
-## Setup Your Own `gaia` Testnet
+## Setup Your Own `aneka` Testnet
 
-- [Setup your own `gaia` testnet](./gaia-tutorials/deploy-testnet.md)
+- [Setup your own `aneka` testnet](./aneka-tutorials/deploy-testnet.md)
 
 ## Additional Resources
 
-- [Validator Resources](./validators/README.md): Contains documentation for `gaia` validators.
+- [Validator Resources](./validators/README.md): Contains documentation for `aneka` validators.
 - [Delegator Resources](./delegators/README.md): Contains documentation for delegators.
-- [Other Resources](./resources/README.md): Contains documentation on `gaiacli`, genesis file, service providers, ledger wallets, ...
+- [Other Resources](./resources/README.md): Contains documentation on `anekacli`, genesis file, service providers, ledger wallets, ...
 - [Cosmos Hub Archives](./resources/archives.md): State archives of past iteration of the Cosmos Hub.
 
 # Contribute

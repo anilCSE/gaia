@@ -6,7 +6,7 @@ parent:
 
 # Validators 
 
-This folder contains documentation relevant to validators of the Cosmos Hub and other `gaia` blockchains. 
+This folder contains documentation relevant to validators of the Cosmos Hub and other `aneka` blockchains. 
 
 - [Validator Overview](./overview.md)
 - [Setting Up a Validator for Cosmos Hub Mainnet](./validator-setup.md)

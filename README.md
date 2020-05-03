@@ -1,20 +1,20 @@
 # Cosmos Hub
 ![banner](./docs/images/cosmos-hub-image.jpg)
 
-[![CircleCI](https://circleci.com/gh/cosmos/gaia/tree/master.svg?style=shield)](https://circleci.com/gh/cosmos/gaia/tree/master)
-[![codecov](https://codecov.io/gh/cosmos/gaia/branch/master/graph/badge.svg)](https://codecov.io/gh/cosmos/gaia)
-[![Go Report Card](https://goreportcard.com/badge/github.com/cosmos/gaia)](https://goreportcard.com/report/github.com/cosmos/gaia)
-[![license](https://img.shields.io/github/license/cosmos/gaia.svg)](https://github.com/cosmos/gaia/blob/master/LICENSE)
-[![LoC](https://tokei.rs/b1/github/cosmos/gaia)](https://github.com/cosmos/gaia)
-[![GolangCI](https://golangci.com/badges/github.com/cosmos/gaia.svg)](https://golangci.com/r/github.com/cosmos/gaia)
+[![CircleCI](https://circleci.com/gh/vitwit/aneka/tree/master.svg?style=shield)](https://circleci.com/gh/vitwit/aneka/tree/master)
+[![codecov](https://codecov.io/gh/vitwit/aneka/branch/master/graph/badge.svg)](https://codecov.io/gh/vitwit/aneka)
+[![Go Report Card](https://goreportcard.com/badge/github.com/vitwit/aneka)](https://goreportcard.com/report/github.com/vitwit/aneka)
+[![license](https://img.shields.io/github/license/vitwit/aneka.svg)](https://github.com/vitwit/aneka/blob/master/LICENSE)
+[![LoC](https://tokei.rs/b1/github/vitwit/aneka)](https://github.com/vitwit/aneka)
+[![GolangCI](https://golangci.com/badges/github.com/vitwit/aneka.svg)](https://golangci.com/r/github.com/vitwit/aneka)
 
-This repository hosts `Gaia`, the first implementation of the Cosmos Hub based on the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk).
+This repository hosts `Aneka`, the first implementation of the Cosmos Hub based on the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk).
 
 **Note**: Requires [Go 1.14+](https://golang.org/dl/)
 
 ## Cosmos Hub Mainnet
 
-To run a full-node for the mainnet of the Cosmos Hub, first [install `gaiad`](./docs/gaia-tutorials/installation.md), then follow [the guide](./docs/gaia-tutorials/join-mainnet.md).
+To run a full-node for the mainnet of the Cosmos Hub, first [install `anekad`](./docs/aneka-tutorials/installation.md), then follow [the guide](./docs/aneka-tutorials/join-mainnet.md).
 
 For status updates and genesis file, see the [launch repo](https://github.com/cosmos/launch).
 

@@ -1,14 +1,14 @@
 [Unit]
-Description=gaiad
+Description=anekad
 Requires=network-online.target
 After=network-online.target
 
 [Service]
 Restart=on-failure
-User=gaiad
-Group=gaiad
+User=anekad
+Group=anekad
 PermissionsStartOnly=true
-ExecStart=/usr/bin/gaiad start
+ExecStart=/usr/bin/anekad start
 ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGTERM
 

@@ -1,6 +1,6 @@
 # 자체 테스트넷 구축하기
 
-해당 문서는 `gaiad` 노드 네트워크를 구축하는 세가지 방법을 설명합니다. 각 테스트넷 모델은 다른 테스트 목적에 최적화 되어있습니다.
+해당 문서는 `anekad` 노드 네트워크를 구축하는 세가지 방법을 설명합니다. 각 테스트넷 모델은 다른 테스트 목적에 최적화 되어있습니다.
 
 1. 싱글-노드, 로컬, 수동 테스트넷
 2. 멀티-노드, 로컬, 자동 테스트넷
@@ -12,11 +12,11 @@
 
 ## Docker 이미지
 
-컨테이너 형태로 Gaia 디플로이를 원하시는 경우, `build` 단계를 건너뛰시고 공식 이미지 파일을 설치하실 수 있습니다. \$TAG은 설치하시려는 버전을 의미합니다.
+컨테이너 형태로 Aneka 디플로이를 원하시는 경우, `build` 단계를 건너뛰시고 공식 이미지 파일을 설치하실 수 있습니다. \$TAG은 설치하시려는 버전을 의미합니다.
 
-- `docker run -it -v ~/.gaiad:/root/.gaiad -v ~/.gaiacli:/root/.gaiacli tendermint:$TAG gaiad init`
-- `docker run -it -p 26657:26657 -p 26656:26656 -v ~/.gaiad:/root/.gaiad -v ~/.gaiacli:/root/.gaiacli tendermint:$TAG gaiad start`
-- `docker run -it -v ~/.gaiad:/root/.gaiad -v ~/.gaiacli:/root/.gaiacli tendermint:$TAG gaiacli version`
+- `docker run -it -v ~/.anekad:/root/.anekad -v ~/.anekacli:/root/.anekacli tendermint:$TAG anekad init`
+- `docker run -it -p 26657:26657 -p 26656:26656 -v ~/.anekad:/root/.anekad -v ~/.anekacli:/root/.anekacli tendermint:$TAG anekad start`
+- `docker run -it -v ~/.anekad:/root/.anekad -v ~/.anekacli:/root/.anekacli tendermint:$TAG anekacli version`
 
 각 이미지는 자체적인 docker-compose 스택을 빌드하는데 사용하실 수 있습니다.
 
@@ -26,7 +26,7 @@
 
 ### 필수 사항
 
-- [gaia 설치](./installation.md)
+- [aneka 설치](./installation.md)
 - [`jq` 설치](https://stedolan.github.io/jq/download/) (선택 사항)
 
 ### 제네시스 파일 만들기, 네트워크 시작하기
@@ -36,26 +36,26 @@
 cd $HOME
 
 # 네트워크를 시작할 genesis.json 파일을 초기화하기
-gaiad init --chain-id=testing testing
+anekad init --chain-id=testing testing
 
 # 밸리데이터 키 생성하기
-gaiacli keys add validator
+anekacli keys add validator
 
 # 해당 키를 제네시스 파일에 있는 genesis.app_state.accounts 어레이(array)에 추가하세요
 # 참고: 이 명령어는 코인 수량을 설정할 수 있게 합니다. 위 계정에 코인 잔고를 포함하세요
-# genesis.app_state.staking.params.bond_denom의 기본 설정은 is staking gaiad add-genesis-account $(gaiacli keys show validator -a) 1000stake,1000validatortoken 입니다.
+# genesis.app_state.staking.params.bond_denom의 기본 설정은 is staking anekad add-genesis-account $(anekacli keys show validator -a) 1000stake,1000validatortoken 입니다.
 
 # 밸리데이터 생성 트랜잭션 실행
-gaiad gentx --name validator
+anekad gentx --name validator
 
 # 제네시스 파일에 초기 본딩 트랜잭션 추가하기
-gaiad collect-gentxs
+anekad collect-gentxs
 
-# 이제 `gaiad`를 실행하실 수 있습니다.
-gaiad start
+# 이제 `anekad`를 실행하실 수 있습니다.
+anekad start
 ```
 
-이 셋업은 모든 `gaiad` 정보를 `~/.gaiad`에 저장힙니다. 생성하신 제네시스 파일을 확인하고 싶으시다면 `~/.gaiad/config/genesis.json`에서 확인이 가능합니다. 위의 세팅으로 `gaiacli`가 이용이 가능하며, 토큰(스테이킹/커스텀)이 있는 계정 또한 함께 생성됩니다.
+이 셋업은 모든 `anekad` 정보를 `~/.anekad`에 저장힙니다. 생성하신 제네시스 파일을 확인하고 싶으시다면 `~/.anekad/config/genesis.json`에서 확인이 가능합니다. 위의 세팅으로 `anekacli`가 이용이 가능하며, 토큰(스테이킹/커스텀)이 있는 계정 또한 함께 생성됩니다.
 
 ## 멀티 노드, 로컬, 자동 테스트넷
 
@@ -63,26 +63,26 @@ gaiad start
 
 ### 필수 사항
 
-- [gaia 설치](./installation.md)
+- [aneka 설치](./installation.md)
 - [docker 설치](https://docs.docker.com/engine/installation/)
 - [docker-compose 설치](https://docs.docker.com/compose/install/)
 
 ### 빌드
 
-`localnet` 커맨드를 운영하기 위한 `gaiad` 바이너리(리눅스)와 `tendermint/gaiadnode` docker 이미지를 생성합니다. 해당 바이너리는 컨테이너에 마운팅 되며 업데이트를 통해 이미지를 리빌드 하실 수 있습니다.
+`localnet` 커맨드를 운영하기 위한 `anekad` 바이너리(리눅스)와 `tendermint/anekadnode` docker 이미지를 생성합니다. 해당 바이너리는 컨테이너에 마운팅 되며 업데이트를 통해 이미지를 리빌드 하실 수 있습니다.
 
 ```bash
-# Clone the gaia repo
-git clone https://github.com/cosmos/gaia.git
+# Clone the aneka repo
+git clone https://github.com/vitwit/aneka.git
 
 # Work from the SDK repo
-cd gaia
+cd aneka
 
 # Build the linux binary in ./build
 make build-linux
 
-# Build tendermint/gaiadnode image
-make build-docker-gaiadnode
+# Build tendermint/anekadnode image
+make build-docker-anekadnode
 ```
 
 ### 테스트넷 실행하기
@@ -93,14 +93,14 @@ make build-docker-gaiadnode
 make localnet-start
 ```
 
-이 커맨드는 4개 노드로 구성되어있는 네트워크를 gaiadnode 이미지를 기반으로 생성합니다. 각 노드의 포트는 하단 테이블에서 확인하실 수 있습니다:
+이 커맨드는 4개 노드로 구성되어있는 네트워크를 anekadnode 이미지를 기반으로 생성합니다. 각 노드의 포트는 하단 테이블에서 확인하실 수 있습니다:
 
 | 노드 ID     | P2P 포트 | RPC 포트 |
 | ----------- | -------- | -------- |
-| `gaianode0` | `26656`  | `26657`  |
-| `gaianode1` | `26659`  | `26660`  |
-| `gaianode2` | `26661`  | `26662`  |
-| `gaianode3` | `26663`  | `26664`  |
+| `anekanode0` | `26656`  | `26657`  |
+| `anekanode1` | `26659`  | `26660`  |
+| `anekanode2` | `26661`  | `26662`  |
+| `anekanode3` | `26663`  | `26664`  |
 
 바이너리를 업데이트 하기 위해서는 리빌드를 하신 후 노드를 재시작 하시면 됩니다:
 
@@ -110,71 +110,71 @@ make build-linux localnet-start
 
 ### 설정
 
-`make localnet-start`는 `gaiad testnet` 명령을 호출하여 4개 노드로 구성된 테스트넷에 필요한 파일을 `./build`에 저장합니다. 이 명령은 `./build` 디렉토리에 다수의 파일을 내보냅니다.
+`make localnet-start`는 `anekad testnet` 명령을 호출하여 4개 노드로 구성된 테스트넷에 필요한 파일을 `./build`에 저장합니다. 이 명령은 `./build` 디렉토리에 다수의 파일을 내보냅니다.
 
 ```bash
 $ tree -L 2 build/
 build/
-├── gaiacli
-├── gaiad
+├── anekacli
+├── anekad
 ├── gentxs
 │   ├── node0.json
 │   ├── node1.json
 │   ├── node2.json
 │   └── node3.json
 ├── node0
-│   ├── gaiacli
+│   ├── anekacli
 │   │   ├── key_seed.json
 │   │   └── keys
-│   └── gaiad
-│       ├── ${LOG:-gaiad.log}
+│   └── anekad
+│       ├── ${LOG:-anekad.log}
 │       ├── config
 │       └── data
 ├── node1
-│   ├── gaiacli
+│   ├── anekacli
 │   │   └── key_seed.json
-│   └── gaiad
-│       ├── ${LOG:-gaiad.log}
+│   └── anekad
+│       ├── ${LOG:-anekad.log}
 │       ├── config
 │       └── data
 ├── node2
-│   ├── gaiacli
+│   ├── anekacli
 │   │   └── key_seed.json
-│   └── gaiad
-│       ├── ${LOG:-gaiad.log}
+│   └── anekad
+│       ├── ${LOG:-anekad.log}
 │       ├── config
 │       └── data
 └── node3
-    ├── gaiacli
+    ├── anekacli
     │   └── key_seed.json
-    └── gaiad
-        ├── ${LOG:-gaiad.log}
+    └── anekad
+        ├── ${LOG:-anekad.log}
         ├── config
         └── data
 ```
 
-각 `./build/nodeN` 디렉토리는 각자 컨테이너 안에 있는 `/gaiad`에 마운팅 됩니다.
+각 `./build/nodeN` 디렉토리는 각자 컨테이너 안에 있는 `/anekad`에 마운팅 됩니다.
 
 ### 로깅
 
-로그는 각 `./build/nodeN/gaiad/gaia.log`에 저장됩니다. 로그는 docker를 통해서 바로 확인하실 수도 있습니다:
+로그는 각 `./build/nodeN/anekad/aneka.log`에 저장됩니다. 로그는 docker를 통해서 바로 확인하실 수도 있습니다:
 
 ```
-docker logs -f gaiadnode0
+docker logs -f anekadnode0
 ```
 
 ### 키와 계정
 
-`gaiacli`를 이용해 tx를 생성하거나 상태를 쿼리 하시려면, 특정 노드의 `gaiacli` 디렉토리를 `home`처럼 이용하시면 됩니다. 예를들어:
+`anekacli`를 이용해 tx를 생성하거나 상태를 쿼리 하시려면, 특정 노드의 `anekacli` 디렉토리를 `home`처럼 이용하시면 됩니다. 예를들어:
 
 ```shell
-gaiacli keys list --home ./build/node0/gaiacli
+anekacli keys list --home ./build/node0/anekacli
 ```
 
 이제 계정이 존재하니 추가로 새로운 계정을 만들고 계정들에게 토큰을 전송할 수 있습니다.
 
 ::: tip
-**참고**: 각 노드의 시드는 `./build/nodeN/gaiacli/key_seed.json`에서 확인이 가능하며 `gaiacli keys add --restore` 명령을 통해 CLI로 복원될 수 있습니다.
+**참고**: 각 노드의 시드는 `./build/nodeN/anekacli/key_seed.json`에서 확인이 가능하며 `anekacli keys add --restore` 명령을 통해 CLI로 복원될 수 있습니다.
 :::
 
 ### 특수 바이너리
@@ -183,7 +183,7 @@ gaiacli keys list --home ./build/node0/gaiacli
 
 ```
 # Run with custom binary
-BINARY=gaiafoo make localnet-start
+BINARY=anekafoo make localnet-start
 ```
 
 ## 멀티 노드, 리모트, 자동 테스트넷

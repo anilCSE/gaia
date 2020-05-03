@@ -2,9 +2,9 @@
 order: 2
 -->
 
-# Install Gaia
+# Install Aneka
 
-This guide will explain how to install the `gaiad` and `gaiacli` entrypoints
+This guide will explain how to install the `anekad` and `anekacli` entrypoints
 onto your system. With these installed on a server, you can participate in the
 mainnet as either a [Full Node](./join-mainnet.md) or a
 [Validator](../validators/validator-setup.md).
@@ -26,18 +26,18 @@ source ~/.bash_profile
 
 ## Install the binaries
 
-Next, let's install the latest version of Gaia. Make sure you `git checkout` the
-correct [released version](https://github.com/cosmos/gaia/releases).
+Next, let's install the latest version of Aneka. Make sure you `git checkout` the
+correct [released version](https://github.com/vitwit/aneka/releases).
 
 ```bash
-git clone -b <latest-release-tag> https://github.com/cosmos/gaia
-cd gaia && make install
+git clone -b <latest-release-tag> https://github.com/vitwit/aneka
+cd aneka && make install
 ```
 
 If this command fails due to the following error message, you might have already set `LDFLAGS` prior to running this step.
 
 ```
-# github.com/cosmos/gaia/cmd/gaiad
+# github.com/vitwit/aneka/cmd/anekad
 flag provided but not defined: -L
 usage: link [options] main.o
 ...
@@ -52,19 +52,19 @@ LDFLAGS="" make install
 
 > _NOTE_: If you still have issues at this step, please check that you have the latest stable version of GO installed.
 
-That will install the `gaiad` and `gaiacli` binaries. Verify that everything is OK:
+That will install the `anekad` and `anekacli` binaries. Verify that everything is OK:
 
 ```bash
-$ gaiad version --long
-$ gaiacli version --long
+$ anekad version --long
+$ anekacli version --long
 ```
 
-`gaiacli` for instance should output something similar to:
+`anekacli` for instance should output something similar to:
 
 ```shell
-name: gaia
-server_name: gaiad
-client_name: gaiacli
+name: aneka
+server_name: anekad
+client_name: anekacli
 version: 2.0.3
 commit: 2f6783e298f25ff4e12cb84549777053ab88749a
 build_tags: netgo,ledger

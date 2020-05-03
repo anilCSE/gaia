@@ -1,6 +1,6 @@
-## 安装 Gaia
+## 安装 Aneka
 
-本教程将详细说明如何在你的系统上安装`gaiad`和`gaiacli`。安装后，你可以作为[全节点](./join-mainnet.md)或是[验证人节点](./validators/validator-setup.md)加入到主网。
+本教程将详细说明如何在你的系统上安装`anekad`和`anekacli`。安装后，你可以作为[全节点](./join-mainnet.md)或是[验证人节点](./validators/validator-setup.md)加入到主网。
 
 ### 安装 Go
 
@@ -18,27 +18,27 @@ Cosmos SDK 需要安装**Go 1.12+**
 
 ### 安装二进制执行程序
 
-接下来，安装最新版本的 Gaia。需要确认您 `git checkout 了正确的[发布版本](https://github.com/cosmos/cosmos-sdk/releases)。
+接下来，安装最新版本的 Aneka。需要确认您 `git checkout 了正确的[发布版本](https://github.com/cosmos/cosmos-sdk/releases)。
 
 ::: warning
 对于主网，请确保你的版本大于或等于`v0.33.0`
 :::
 
 ```bash
-git clone -b <latest-release-tag> https://github.com/cosmos/gaia
-cd gaia && make install
+git clone -b <latest-release-tag> https://github.com/vitwit/aneka
+cd aneka && make install
 ```
 
 > _注意_: 如果在这一步中出现问题，请检查你是否安装的是 Go 的最新稳定版本。
 
-等`gaiad`和`gaiacli`可执行程序安装完之后，请检查:
+等`anekad`和`anekacli`可执行程序安装完之后，请检查:
 
 ```bash
-$ gaiad version --long
-$ gaiacli version --long
+$ anekad version --long
+$ anekacli version --long
 ```
 
-`gaiacli`的返回应该类似于：
+`anekacli`的返回应该类似于：
 
 ```
 cosmos-sdk: 0.33.0

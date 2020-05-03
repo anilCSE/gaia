@@ -13,7 +13,7 @@ module.exports = {
   ],
   base: process.env.VUEPRESS_BASE || "/",
   themeConfig: {
-    docsRepo: "cosmos/gaia",
+    docsRepo: "vitwit/aneka",
     docsDir: "docs",
     editLinks: true,
     label: "hub",
